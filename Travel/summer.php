@@ -1,8 +1,8 @@
 <?php
-include "db_connect.php";
-include "arrangement_functions.php";
-$id = 2;
-$destinations = get_destinations_by_category($conn, $id);
+    include "db_connect.php";
+    include "arrangement_functions.php";
+    $id=2;
+    $destinations=get_destinations_by_category($conn,$id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -100,6 +100,7 @@ $destinations = get_destinations_by_category($conn, $id);
             </a>
         </ul>
     </nav>
+<<<<<<< HEAD
     <h1>SUMMER</h1>
     <div class="filter">
         <form method="get" action="search_destinations_by_category.php">
@@ -157,45 +158,104 @@ $destinations = get_destinations_by_category($conn, $id);
                 <input type="text" id="imgUrl" name="imgUrl" required><br><br>
 
                 <input type="submit" value="Add Destination">
+=======
+        <h1>SUMMER</h1>
+        <div class="filter">
+            <form method="get" action="searchDestinations.php">
+            <input type="hidden" name="id" value="2">
+                <div class="Forms">
+                    <label class="form1" for="priceRange">Price range</label> <br>
+                    <select class="form1" name="priceRange">
+                        <option value=""></option>
+                        <option value="0-100">0-100</option>
+                        <option value="101-200">101-200</option>
+                        <option value="201-300">201-300</option>
+                        <option value="301-400">301-400</option>
+                        <option value="401-500">401-500</option>
+                        <option value="500+">500+</option>
+                    </select>
+                </div>
+                <div class="Forms">
+                    <label class="form1" for="date">Date</label> <br>
+                    <input class="form1" type="date" name="date">
+                </div>
+                <div class="Forms">
+                    <label class="form1" for="location">Location</label> <br>
+                    <input class="form1" type="text" name="location">
+                </div>
+                <div class="Forms">
+                    <input class="form1" type="submit" value="SEARCH">
+                </div>
+>>>>>>> a8c98243bcf31179880d2f7a5aa924e4db0bab29
             </form>
         </div>
-    </div>
-    <script>
-        // JavaScript to control modal display
-        var modal = document.getElementById('addDestinationModal');
-        var btn = document.querySelector('.open-modal-btn');
-        var span = document.getElementsByClassName('close')[0];
+            <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
+            <div id="addDestinationModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="document.getElementById('addDestinationModal').style.display='none'">&times;</span>
+                    <h2>Add Destination</h2>
+                    <form action="addDestination.php" method="post">
+                        <label for="destinationName">Destination Name</label><br>
+                        <input type="text" id="destinationName" name="destinationName" required><br><br>
 
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
+                        <label for="fromDate">From Date</label><br>
+                        <input type="date" id="fromDate" name="fromDate" required><br><br>
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <section class="arr">
-        <?php foreach ($destinations as $dest) { ?>
-            <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
-                <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl']; ?>') no-repeat center center/cover;">
-                    <div class="desc">
-                        <h3><?php echo $dest['destinationName']; ?></h3>
-                        <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                        <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
-                    </div>
+                        <label for="toDate">To Date</label><br>
+                        <input type="date" id="toDate" name="toDate" required><br><br>
+
+                        <label for="description">Description</label><br>
+                        <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+                        <label for="price">Price</label><br>
+                        <input type="text" id="price" name="price" required><br><br>
+
+                        <label for="location">Location</label><br>
+                        <input type="text" id="location" name="location" required><br><br>
+
+                        <label for="imgUrl">Image URL</label><br>
+                        <input type="text" id="imgUrl" name="imgUrl" required><br><br>
+
+                        <input type="submit" value="Add Destination">
+                    </form>
                 </div>
-            </a>
-        <?php } ?>
-    </section>
-    <footer>
-        <p>&copy 2024</p>
-    </footer>
-</body>
+            </div>
+            <script>
+                // JavaScript to control modal display
+                var modal = document.getElementById('addDestinationModal');
+                var btn = document.querySelector('.open-modal-btn');
+                var span = document.getElementsByClassName('close')[0];
 
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+            <section class="arr">
+            <?php foreach($destinations as $dest) { ?>
+                <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
+                    <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl'];?>') no-repeat center center/cover;" >
+                        <div class="desc">
+                            <h3><?php echo $dest['destinationName']; ?></h3>
+                            <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
+                            <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
+                        </div>
+                    </div>
+                </a>
+                <?php } ?>
+            </section>
+            <footer>
+                <p>&copy 2024</p>
+            </footer>
+    </body>
 </html>
