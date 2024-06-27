@@ -1,3 +1,10 @@
+<?php
+    include "db_connect.php";
+    include "arrangement_functions.php";
+    $id=4;
+    $destinations=get_destinations_by_category($conn,$id);
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,15 +67,17 @@
                 </form> 
             </div>
             <section class="arr">
-                <a href="">
-                    <div class="arr1">
+                <?php foreach($destinations as $dest) { ?>
+                <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
+                    <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl'];?>') no-repeat center center/cover;" >
                         <div class="desc">
-                            <h3>Destination</h3>
-                            <h4><i>From - to </i></h4>
-                            <h4 class="price">Price</h4>
+                            <h3><?php echo $dest['destinationName']; ?></h3>
+                            <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
+                            <h4 class="price"><?php echo $dest['price']; ?></h4>
                         </div>
                     </div>
                 </a>
+                <?php } ?>
             </section>
             <footer>
                 <p>&copy 2024</p>

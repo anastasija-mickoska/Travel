@@ -1,3 +1,9 @@
+<?php
+    include "db_connect.php";
+    include "arrangement_functions.php";
+    $featured=get_featured_destinations($conn);
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -88,7 +94,7 @@
             }
             #destination1 {
                 font-family: 'Poppins','sans-serif';
-                font-size:2.5em;
+                font-size:1.75em;
                 font-weight: 300;
                 width:80%;
                 margin-left:10%;
@@ -96,8 +102,6 @@
                 color:white;
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
-                position:relative;
-                top:75%;
             }
             h1 {
                 font-family: 'Poppins','sans-serif';
@@ -116,19 +120,25 @@
                 height:70vh;
             }
             .featuredItems {
-                width:80%;
-                margin-left:10%;
-                margin-right: 10%;
+                width:25%;
                 height:50vh;
+                float:left;
+                margin-left:4%;
+                margin-right:4%;
             }
             .featured1 {
-                width:30%;
+                width:100%;
                 border-radius: 5px;
                 background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('summer2.avif');
                 background-size: cover;
                 height:100%;
                 margin:1.5%;
-                float:left;
+                position: relative; 
+                box-sizing: border-box; 
+            }
+            .desc {
+                width:100%;
+                height:10vh;
             }
         </style>
     </head>
@@ -192,15 +202,17 @@
             </section>
             <section id="featured">
                 <h1>FEATURED</h1>
-                <div class="featuredItems">
-                    <a href="">
-                        <div class="featured1">
-                            <div class="desc">
-                                <h3 id="destination1">Destination</h3>
+                <?php foreach($featured as $destination) { ?>
+                    <div class="featuredItems">
+                        <a href="destination_details.php?id=<?php echo $destination['destinationID']; ?>">
+                            <div class="featured1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' <?php echo $destination['imgUrl']; ?>') no-repeat center center/cover; ">
+                                <div class="desc">
+                                    <h3 id="destination1"><?php echo $destination['destinationName']; ?></h3>
+                                </div>  
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                <?php } ?>
             </section>
             <footer>
                 <p>&copy 2024</p>

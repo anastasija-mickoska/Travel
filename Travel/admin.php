@@ -1,7 +1,9 @@
 <?php
 include "db_connect.php";
 include "category_functions.php";
+include "arrangement_functions.php";
 $categories = get_categories($conn);
+$arrangements=get_arrangements($conn);
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +13,7 @@ $categories = get_categories($conn);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.php">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <style>
@@ -32,18 +35,15 @@ $categories = get_categories($conn);
             text-align: center;
         }
         .btn.btn-primary {
-            width:25%;
+            width:45%;
             float:left;
             color:white;
             margin:2%;
         }
         .card.text-center {
-            width:45%;
+            width:20%;
             float:left;
-            margin-right: 2.5%;
-            margin-left:2.5%;
-            margin-bottom: 2%;
-            margin-top:2%;
+            margin:2%;
         }
         .adminButton {
             text-decoration: none;
@@ -99,24 +99,38 @@ $categories = get_categories($conn);
 		<?php } ?>
 
 		<h4>All Categories</h4>
-        <a class ="btn btn-danger" id="add_category" href="add_category.php">Add Category</a> 
         <div class="categories">
-                <?php 
-                $i = 0;
-                foreach ($categories as $category) {
-                    $i++;
+            <?php 
+            foreach ($categories as $category) {
+                $pageName = strtolower($category['categoryName']) . '.php';
             ?>
             <div class="card text-center">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo htmlspecialchars($category['categoryName']); ?></h5>
-                    <button class="btn btn-primary"><a href="edit_category.php?id=<?php echo $category['categoryID']; ?>" class="adminButton">Edit</a></button>
-                    <button class="btn btn-primary"><a href="category_details.php?id=<?php echo $category['categoryID']; ?>" class="adminButton">Details</a></button>
-                    <button class="btn btn-primary"><a href="delete_category.php?id=<?php echo $category['categoryID']; ?>"class="adminButton">Delete</a></button>
+                    <button class="btn btn-primary">
+                        <a href="<?php echo $pageName; ?>" class="adminButton">Details</a>
+                    </button>
+                    <button class="btn btn-primary">
+                        <a href="delete_category.php?id=<?php echo $category['categoryID']; ?>" class="adminButton">Delete all</a>
+                    </button>
                 </div>
             </div>
-                <?php } ?>
+            <?php } ?>
         </div>
-
-
+        <h4>All arrangements</h4>
+        <div class="arrangements">
+            <?php 
+            foreach($arrangements as $arrangement) { ?>
+                <a href="arrangement_details.php?id=<?php echo $arrangement['destinationID']?>">
+                    <div class="arr1">
+                        <div class="desc">
+                            <h3><?php echo $arrangement['destinationName']?></h3>
+                            <h4><i><?php echo $arrangement['fromDate']?> - <?php echo $arrangement['toDate']?></i></h4>
+                            <h4 class="price"><?php echo $arrangement['price']?></h4>
+                        </div>
+                    </div>
+                </a>
+            <?php } ?>
+        </div>
 </body>
 </html>
