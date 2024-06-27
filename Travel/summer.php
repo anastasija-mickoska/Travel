@@ -128,7 +128,7 @@ $destinations = get_destinations_by_category($conn, $id);
             </div>
         </form>
     </div>
-    <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
+    <!-- <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button> -->
 
     <div id="addDestinationModal" class="modal">
         <div class="modal-content">

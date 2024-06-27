@@ -127,7 +127,7 @@ $destinations = get_destinations_by_category($conn, $id);
             </div>
         </form>
     </div>
-    <button class="open-modal-btn">Add Category</button>
+    <!-- <button class="open-modal-btn">Add Category</button> -->
     <div id="addCategoryModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -171,6 +171,7 @@ $destinations = get_destinations_by_category($conn, $id);
     <footer>
         <p>&copy 2024</p>
     </footer>
+
 </body>
 
 </html>
