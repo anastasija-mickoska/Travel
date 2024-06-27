@@ -39,17 +39,18 @@
             </nav>
             <h1>SPRING</h1>
             <div class="filter">
-                <form method="get">
+                <form method="get" action="searchDestinations.php">
+                <input type="hidden" name="id" value="1">
                     <div class="Forms">
                         <label class="form1" for="priceRange">Price range</label> <br>
-                        <select class="form1" for="priceRange">
+                        <select class="form1" name="priceRange">
                             <option value=""></option>
-                            <option value="1">0-100</option>
-                            <option value="2">101-200</option>
-                            <option value="3">201-300</option>
-                            <option value="4">301-400</option>
-                            <option value="5">401-500</option>
-                            <option value="6">500+</option>
+                            <option value="0-100">0-100</option>
+                            <option value="101-200">101-200</option>
+                            <option value="201-300">201-300</option>
+                            <option value="301-400">301-400</option>
+                            <option value="401-500">401-500</option>
+                            <option value="500+">500+</option>
                         </select>
                     </div>
                     <div class="Forms">
@@ -72,7 +73,7 @@
                         <div class="desc">
                             <h3><?php echo $dest['destinationName']; ?></h3>
                             <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                            <h4 class="price"><?php echo $dest['price']; ?></h4>
+                            <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
                         </div>
                     </div>
                 </a>
