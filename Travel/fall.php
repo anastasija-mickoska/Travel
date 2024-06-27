@@ -1,8 +1,8 @@
 <?php
-include "db_connect.php";
-include "arrangement_functions.php";
-$id = 3;
-$destinations = get_destinations_by_category($conn, $id);
+    include "db_connect.php";
+    include "arrangement_functions.php";
+    $id=3;
+    $destinations=get_destinations_by_category($conn,$id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,17 +101,18 @@ $destinations = get_destinations_by_category($conn, $id);
     </nav>
     <h1>FALL</h1>
     <div class="filter">
-        <form method="get">
+        <form method="get" action="searchDestinations.php?">
+        <input type="hidden" name="id" value="3">
             <div class="Forms">
                 <label class="form1" for="priceRange">Price range</label> <br>
-                <select class="form1" for="priceRange">
+                <select class="form1" name="priceRange">
                     <option value=""></option>
-                    <option value="1">0-100</option>
-                    <option value="2">101-200</option>
-                    <option value="3">201-300</option>
-                    <option value="4">301-400</option>
-                    <option value="5">401-500</option>
-                    <option value="6">500+</option>
+                    <option value="0-100">0-100</option>
+                    <option value="101-200">101-200</option>
+                    <option value="201-300">201-300</option>
+                    <option value="301-400">301-400</option>
+                    <option value="401-500">401-500</option>
+                    <option value="500+">500+</option>
                 </select>
             </div>
             <div class="Forms">
@@ -155,22 +156,21 @@ $destinations = get_destinations_by_category($conn, $id);
             }
         }
     </script>
-    <section class="arr">
-        <?php foreach ($destinations as $dest) { ?>
-            <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
-                <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl']; ?>') no-repeat center center/cover;">
-                    <div class="desc">
-                        <h3><?php echo $dest['destinationName']; ?></h3>
-                        <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                        <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
+            <section class="arr">
+            <?php foreach($destinations as $dest) { ?>
+                <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
+                    <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl'];?>') no-repeat center center/cover;" >
+                        <div class="desc">
+                            <h3><?php echo $dest['destinationName']; ?></h3>
+                            <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
+                            <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
+                        </div>
                     </div>
-                </div>
-            </a>
-        <?php } ?>
-    </section>
-    <footer>
-        <p>&copy 2024</p>
-    </footer>
-</body>
-
+                </a>
+                <?php } ?>
+            </section>
+            <footer>
+                <p>&copy 2024</p>
+            </footer>
+    </body>
 </html>
