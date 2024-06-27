@@ -1,8 +1,8 @@
 <?php
-    include "db_connect.php";
-    include "arrangement_functions.php";
-    $id=2;
-    $destinations=get_destinations_by_category($conn,$id);
+include "db_connect.php";
+include "arrangement_functions.php";
+$id = 2;
+$destinations = get_destinations_by_category($conn, $id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,7 +102,7 @@
     </nav>
     <h1>SUMMER</h1>
     <div class="filter">
-        <form method="get">
+        <form method="get" action="search_destinations_by_category.php">
             <div class="Forms">
                 <label class="form1" for="priceRange">Price range</label> <br>
                 <select class="form1" name="priceRange">
@@ -115,7 +115,6 @@
                     <option value="500+">500+</option>
                 </select>
             </div>
-<<<<<<< HEAD
             <div class="Forms">
                 <label class="form1" for="date">Date</label> <br>
                 <input class="form1" type="date" name="date">
@@ -129,17 +128,6 @@
             </div>
         </form>
     </div>
-    <section class="arr">
-        <a href="#">
-            <div class="arr1">
-                <div class="desc">
-                    <h3>Destination</h3>
-                    <h4><i>From - to </i></h4>
-                    <h4 class="price">Price</h4>
-                </div>
-            </div>
-        </a>
-    </section>
     <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
 
     <div id="addDestinationModal" class="modal">
@@ -172,11 +160,6 @@
             </form>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2024</p>
-    </footer>
-
     <script>
         // JavaScript to control modal display
         var modal = document.getElementById('addDestinationModal');
@@ -197,25 +180,22 @@
             }
         }
     </script>
+    <section class="arr">
+        <?php foreach ($destinations as $dest) { ?>
+            <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
+                <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl']; ?>') no-repeat center center/cover;">
+                    <div class="desc">
+                        <h3><?php echo $dest['destinationName']; ?></h3>
+                        <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
+                        <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
+                    </div>
+                </div>
+            </a>
+        <?php } ?>
+    </section>
+    <footer>
+        <p>&copy 2024</p>
+    </footer>
 </body>
 
-=======
-            <section class="arr">
-            <?php foreach($destinations as $dest) { ?>
-                <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
-                    <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl'];?>') no-repeat center center/cover;" >
-                        <div class="desc">
-                            <h3><?php echo $dest['destinationName']; ?></h3>
-                            <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                            <h4 class="price"><?php echo $dest['price']; ?></h4>
-                        </div>
-                    </div>
-                </a>
-                <?php } ?>
-            </section>
-            <footer>
-                <p>&copy 2024</p>
-            </footer>
-    </body>
->>>>>>> 312fb30a03935060f69da24c0b44fa3befb5c421
 </html>
