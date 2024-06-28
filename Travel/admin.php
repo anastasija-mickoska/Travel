@@ -4,6 +4,7 @@ include "category_functions.php";
 include "arrangement_functions.php";
 $categories = get_categories($conn);
 $arrangements=get_arrangements($conn);
+//$bookings=get_bookings($conn);
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +14,13 @@ $arrangements=get_arrangements($conn);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.php">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <style>
         body {
             background: linear-gradient(#085a57, rgba(8, 90, 87, 0.4)) no-repeat center center/cover;
             min-height: 100vh;
-        }
-        section {
-            width:100%;
-            float:left;
         }
         .categories {
             width:80%;
@@ -48,6 +46,11 @@ $arrangements=get_arrangements($conn);
             float:left;
             margin:2%;
         }
+        .card-title {
+            font-family: "Poppins","sans-serif";
+            font-weight: 500;
+            font-size:1.5em;
+        }
         .adminButton {
             text-decoration: none;
             color:white;
@@ -66,6 +69,67 @@ $arrangements=get_arrangements($conn);
             margin-top:2.5%;
             margin-bottom:2.5%;
         }
+        table {
+            margin-top:2%;
+        }
+        th, td a, td {
+            text-decoration: none;
+            color:white;
+            font-size:1.2em;
+            font-family:"Poppins","sans-serif";
+            font-weight: 300;
+        }
+        th {
+            font-size:1.5em;
+            font-weight: 500;
+        }
+        td:hover, td a:hover {
+            color:#085a57;
+        }
+        #dest {
+            width:30%;
+        }
+        #btn {
+                border-radius:10px;
+                border:none;
+                width:50%;
+                margin-left:25%;
+                background-color: #085a57;
+                color:white;
+                padding:2%;
+                font-size:1em;
+                letter-spacing: 0.1em;
+        }
+        #btn a:hover {
+            color:white;
+        }
+        #btn_add {
+                border-radius:10px;
+                border:none;
+                width:20%;
+                background-color: #085a57;
+                color:white;
+                font-size:1.5em;
+                letter-spacing: 0.1em;
+                padding: 1%;
+        }
+        #btn_add a{
+            color:white;
+            text-decoration: none;
+        }
+        #btn1 {
+                border-radius:10px;
+                border:none;
+                width:45%;
+                margin-left:2%;
+                background-color: #085a57;
+                color:white;
+                font-size:1em;
+                padding: 1%;
+        }
+        #btn1 a:hover {
+            color:white;
+        }
     </style>
 
 
@@ -74,17 +138,13 @@ $arrangements=get_arrangements($conn);
         <nav>
             <ul>
                     <a href="home.php"><li>Home</li></a>
-                    <a href="#categories"><li>Categories</li></a>
-                    <a href="#allDestinations"><li>Arrangements</li></a>
-                    <a href="#allBookings"><li>Bookings</li></a>
+                    <a href="summer.php"><li>Summer</li></a>
+                    <a href="winter.php"><li>Winter</li></a>
+                    <a href="spring.php"><li>Spring</li></a>
+                    <a href="fall.php"><li>Fall</li></a>
+                    <a href="login.php"><li>Login</li></a>
                 </ul>
         </nav>
-       <form action="search.php" method="get" style="width: 100%; max-width: 30rem">
-       	<div class="input-group my-5">
-		  <input type="text" class="form-control" name="key" placeholder="Search Category or Arrangement...">
-		  <button class="input-group-text btn btn-primary">SEARCH</button>
-		</div>
-       </form>
        <div class="mt-5"></div>
         <?php if (isset($_GET['error'])) { ?>
           <div class="alert alert-danger" role="alert">
@@ -96,47 +156,93 @@ $arrangements=get_arrangements($conn);
 			  <?=htmlspecialchars($_GET['success']); ?>
 		  </div>
 		<?php } ?>
-        <section id="categories">
-            <h4 id="allDestinations">All Categories</h4>
-            <div class="categories">
-                <?php 
-                foreach ($categories as $category) {
-                    $pageName = strtolower($category['categoryName']) . '.php';
-                ?>
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo htmlspecialchars($category['categoryName']); ?></h5>
-                        <button class="btn btn-primary">
-                            <a href="<?php echo $pageName; ?>" class="adminButton">Details</a>
-                        </button>
-                        <button class="btn btn-primary">
-                            <a href="delete_category.php?id=<?php echo $category['categoryID']; ?>" class="adminButton">Delete all</a>
-                        </button>
-                    </div>
+
+		<h4>All Categories</h4>
+        <div class="categories">
+            <?php 
+            foreach ($categories as $category) {
+                $pageName = strtolower($category['categoryName']) . '.php';
+            ?>
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo htmlspecialchars($category['categoryName']); ?></h5>
+                    <button id="btn1">
+                        <a href="<?php echo $pageName; ?>" class="adminButton">Details</a>
+                    </button>
+                    <button id="btn1">
+                        <a href="delete_category.php?id=<?php echo $category['categoryID']; ?>" class="adminButton">Delete all</a>
+                    </button>
                 </div>
-                <?php } ?>
             </div>
-        </section>
-        <section id="destinations">
-            <h4 id="allDestinations">All arrangements</h4>
-            <a class ="btn btn-danger" href="add_arrangement.php">Add arrangement</a>
-            <div class="arrangements">
-                <?php 
-                foreach($arrangements as $arrangement) { ?>
-                    <a href="arrangement_details.php?id=<?php echo $arrangement['destinationID']?>">
-                        <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $arrangement['imgUrl'];?>') no-repeat center center/cover;" >
-                            <div class="desc">
-                                <h3><?php echo $arrangement['destinationName']?></h3>
-                                <h4><i><?php echo $arrangement['fromDate']?> - <?php echo $arrangement['toDate']?></i></h4>
-                                <h4 class="price"><?php echo $arrangement['price']?></h4>
-                            </div>
-                        </div>
-                    </a>
-                <?php } ?>
-            </div>
-        </section>
-        <section id="bookings">
-            <h4 id="allBookings">All bookings</h4>
-        </section>
+            <?php } ?>
+        </div>
+        <h4>All arrangements</h4>
+        <button id="btn_add"><a href="add_arrangement.php">Add arrangement</a></button>
+        <div class="arrangements">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Destination Name</th>
+                        <th scope="col">From Date</th>
+                        <th scope="col">To Date</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($arrangements as $arrangement) { ?>
+                        <tr>
+                            <td id="dest">
+                                <a href="arrangement_details.php?id=<?php echo $arrangement['destinationID'];?>">
+                                    <?php echo $arrangement['destinationName']?>
+                                </a>
+                            </td>
+                            <td><?php echo $arrangement['fromDate']?></td>
+                            <td><?php echo $arrangement['toDate']?></td>
+                            <td><?php echo $arrangement['price']?> €</td>
+                            <td>
+                                <button id="btn"><a href="editDestination.php?id=<?php echo $arrangement['destinationID']?>">Edit</a></button>
+                            </td>
+                            <td>
+                                <button id="btn"><a href="deleteDestination.php?id=<?php echo $arrangement['destinationID']?>">Delete</a></button>
+                            </td>
+                            <td>
+                                <button id="btn"><a href="destination_details.php?id=<?php echo $arrangement['destinationID']?>">Details</a></button>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <h4>All bookings</h4>
+        <div class="bookings">
+        <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Booking ID</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($bookings as $booking) { ?>
+                        <tr>
+                            <td><?php echo $booking['bookingID']?></td>
+                            <td id="dest">
+                                <a href="arrangement_details.php?id=<?php echo $booking['destinationID'];?>">
+                                    <?php echo $booking['destinationID']?>
+                                </a>
+                            </td>
+                            <td><?php echo $booking['userID']?></td>
+                            <td>
+                                <button id="btn"><a href="deleteBooking.php?id=<?php echo $booking['destinationID']?>">Delete</a></button>
+                            </td>
+                            <td>
+                                <button id="btn"><a href="bookingDetails.php?id=<?php echo $booking['bookingID']?>">Details</a></button>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
 </body>
 </html>
