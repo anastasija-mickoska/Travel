@@ -1,13 +1,92 @@
-<!-- <!DOCTYPE html>
+<?php
+session_start();
+include "db_connect.php";
+include "arrangement_functions.php";
+$name = $_GET['name'];
+$destination = get_destination_by_name($conn, $name);
+ 
+?>
+<!DOCTYPE html>
 <html>
 
 <head>
     <link rel="stylesheet" href="style.css">
     <title>Edit Destination</title>
+    <style>
+        body {
+            background: linear-gradient(#085a57, rgba(8, 90, 87, 0.4)) no-repeat center center/cover;
+            min-height:100vh;
+        }
+        h1 {
+            font-family: 'Poppins', 'sans-serif';
+            font-weight: 300;
+            font-size: 2.5em;
+            color: white;
+            letter-spacing: 0.25em;
+            width: 80%;
+            margin-left: 5%;
+            margin-top: 2%;
+            text-decoration: underline 1px white;
+            text-underline-offset: 5px;
+        }
+        form {
+            margin-top:5%;
+        }
+        #search {
+            width: 70%;
+            height: 150px;
+            margin-left: 15%;
+            margin-right: 15%;
+            margin-top: 2%;
+        }
+
+        .Forms {
+            width: 50%;
+            margin-left: 2%;
+        }
+
+        label {
+            font-family: 'Poppins', 'sans-serif';
+            font-weight: 300;
+            font-size: 1.5em;
+            letter-spacing: 0.1em;
+            color: white;
+        }
+
+        input,
+        select {
+            padding: 1%;
+            border-radius: 5px;
+            border: none;
+            width: 70%;
+            opacity: 0.3;
+            font-family: 'Poppins', 'sans-serif';
+            font-size: 1em;
+        }
+
+        option {
+            font-family: 'Poppins', 'sans-serif';
+            font-size: 1em;
+        }
+
+        #searchButton {
+            width: 25%;
+            border-radius: 5px;
+            border: none;
+            margin-top: 2.5%;
+            padding: 1.4%;
+            background-color: #085a57;
+            opacity: 1;
+            color: white;
+            font-family: "Poppins","sans-serif";
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+    </style>
 </head>
 
 <body>
-            <nav>
+    <nav>
     <ul>
         <li><a href="home.php">Home</a></li>
         <li><a href="summer.php">Summer</a></li>
@@ -31,31 +110,39 @@
         <?php endif; ?>
     </ul>
 </nav>
-    <h1>Edit Destination</h1>
-    <form method="post" action="updateDestination.php">
+    <h1><?php echo $destination['destinationName']; ?></h1>
+    <form method="post" enctype="multipart/form-data" action="updateDestination.php">
         <div class="Forms">
             <label for="destinationName">Destination Name</label> <br>
-            <input type="text" name="destinationName" required>
+            <input type="text" name="destinationName" value="<?php echo $destination['destinationName']; ?>">
         </div>
         <div class="Forms">
-            <label for="destinationSeason">Season</label> <br>
-            <select name="destinationSeason">
-                <option value="Summer">Summer</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring">Spring</option>
-                <option value="Fall">Fall</option>
-            </select>
+            <label for="categoryID">Category</label> <br>
+            <input type="text" name="categoryID" value="<?php echo $destination['categoryID']; ?>">
         </div>
         <div class="Forms">
-            <label for="priceRange">Price Range</label> <br>
-            <select name="priceRange">
-                <option value="0-100">0-100</option>
-                <option value="101-200">101-200</option>
-                <option value="201-300">201-300</option>
-                <option value="301-400">301-400</option>
-                <option value="401-500">401-500</option>
-                <option value="500+">500+</option>
-            </select>
+            <label for="fromDate">From</label> <br>
+            <input type="date" name="fromDate" value="<?php echo $destination['fromDate']; ?>">
+        </div>
+        <div class="Forms">
+            <label for="toDate">To</label> <br>
+            <input type="date" name="toDate" value="<?php echo $destination['toDate']; ?>">
+        </div>
+        <div class="Forms">
+            <label for="description">Description</label> <br>
+            <input type="text" name="description" value="<?php echo $destination['description']; ?>">
+        </div>
+        <div class="Forms">
+            <label for="price">Price</label> <br>
+            <input type="text" name="price" value="<?php echo $destination['price']; ?>">
+        </div>
+        <div class="Forms">
+            <label for="location">Location</label> <br>
+            <input type="text" name="location" value="<?php echo $destination['location']; ?>">
+        </div>
+        <div class="Forms">
+            <label for="imgUrl">Image</label> <br>
+            <input type="file" name="imgUrl">
         </div>
         <div class="Forms">
             <input type="submit" value="Update Destination" id="searchButton">
@@ -63,4 +150,4 @@
     </form>
 </body>
 
-</html> -->
+</html>
