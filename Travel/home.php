@@ -243,8 +243,7 @@ $featured = get_featured_destinations($conn);
         <h1>FEATURED</h1>
         <?php foreach ($featured as $destination) { ?>
             <div class="featuredItems">
-                <a href="details.php?id=<?php echo $dest['destinationID']; ?>&name=<?php echo urlencode($dest['destinationName']); ?>">
-
+                <a href="details.php?name=<?php echo $destination['destinationName']; ?>">
                     <div class="featured1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' <?php echo $destination['imgUrl']; ?>') no-repeat center center/cover; ">
                         <div class="desc">
                             <h3 id="destination1"><?php echo $destination['destinationName']; ?></h3>
