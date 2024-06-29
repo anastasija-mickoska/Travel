@@ -2,8 +2,8 @@
 session_start();
 include "db_connect.php";
 include "arrangement_functions.php";
-    $id=3;
-    $destinations=get_destinations_by_category($conn,$id);
+$id = 3;
+$destinations = get_destinations_by_category($conn, $id);
 
 ?>
 <!DOCTYPE html>
@@ -79,26 +79,42 @@ include "arrangement_functions.php";
 </head>
 
 <body>
-<nav>
-                    <ul>
-                        <a href="home.php"><li>Home</li></a>
-                        <a href="summer.php"><li>Summer</li></a>
-                        <a href="winter.php"><li>Winter</li></a>
-                        <a href="spring.php"><li>Spring</li></a>
-                        <a href="fall.php"><li>Fall</li></a>
-                        <?php if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])): ?>
-                            <li style="color:white; font-family:Poppins; font-weight:100; width:20%"><?php echo $_SESSION['user_email']; ?></li>
-                            <a href="myBookings.php?userID=<?php echo $_SESSION['user_id'];?>"><li>My Bookings</li></a>
-                            <a href="logout.php"><li>Logout</li></a>
-                        <?php else: ?>
-                            <a href="login.php"><li>Login</li></a>
-                        <?php endif; ?>                    
-                    </ul>
-                </nav>
+    <nav>
+        <ul>
+            <a href="home.php">
+                <li>Home</li>
+            </a>
+            <a href="summer.php">
+                <li>Summer</li>
+            </a>
+            <a href="winter.php">
+                <li>Winter</li>
+            </a>
+            <a href="spring.php">
+                <li>Spring</li>
+            </a>
+            <a href="fall.php">
+                <li>Fall</li>
+            </a>
+            <?php if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])) : ?>
+                <li style="color:white; font-family:Poppins; font-weight:100; width:20%"><?php echo $_SESSION['user_email']; ?></li>
+                <a href="myBookings.php?userID=<?php echo $_SESSION['user_id']; ?>">
+                    <li>My Bookings</li>
+                </a>
+                <a href="logout.php">
+                    <li>Logout</li>
+                </a>
+            <?php else : ?>
+                <a href="login.php">
+                    <li>Login</li>
+                </a>
+            <?php endif; ?>
+        </ul>
+    </nav>
     <h1>FALL</h1>
     <div class="filter">
         <form method="get" action="searchDestinations.php?">
-        <input type="hidden" name="id" value="3">
+            <input type="hidden" name="id" value="3">
             <div class="Forms">
                 <label class="form1" for="priceRange">Price range</label> <br>
                 <select class="form1" name="priceRange">
@@ -152,22 +168,22 @@ include "arrangement_functions.php";
             }
         }
     </script>
-            <section class="arr">
-            <?php foreach($destinations as $dest) { ?>
-                <a href="destination_details.php?id=<?php echo $dest['destinationID']; ?>">
-                    <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl'];?>') no-repeat center center/cover;" >
-                        <div class="desc">
-                            <h3><?php echo $dest['destinationName']; ?></h3>
-                            <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                            <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
-                        </div>
+    <section class="arr">
+        <?php foreach ($destinations as $dest) { ?>
+            <a href="details.php?id=<?php echo $dest['destinationID']; ?>&name=<?php echo urlencode($dest['destinationName']); ?>">
+                <div class="arr1" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('<?php echo $dest['imgUrl']; ?>') no-repeat center center/cover;">
+                    <div class="desc">
+                        <h3><?php echo $dest['destinationName']; ?></h3>
+                        <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
+                        <h4 class="price"><?php echo $dest['price']; ?> &#8364;</h4>
                     </div>
-                </a>
-                <?php } ?>
-            </section>
-            <footer class="body-container">
+                </div>
+            </a>
+        <?php } ?>
+    </section>
+    <footer class="body-container">
         <div class="footer-element">
-            <img src="logo.jpg" height="120" width="120" style="border-radius: 20px;"> 
+            <img src="logo.jpg" height="120" width="120" style="border-radius: 20px;">
         </div>
         <div class="footer-element">
             <h2>Links</h2>
@@ -195,5 +211,6 @@ include "arrangement_functions.php";
             </ul>
         </div>
     </footer>
-    </body>
+</body>
+
 </html>
