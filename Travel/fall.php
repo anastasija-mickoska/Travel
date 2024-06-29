@@ -29,6 +29,7 @@ $destinations = get_destinations_by_category($conn, $id);
             text-underline-offset: 5px;
         }
 
+
         .modal {
             display: none;
             position: fixed;
@@ -38,17 +39,17 @@ $destinations = get_destinations_by_category($conn, $id);
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 50px;
         }
 
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
-            max-width: 500px;
+            max-width: 600px;
         }
 
         .close {
@@ -56,6 +57,7 @@ $destinations = get_destinations_by_category($conn, $id);
             float: right;
             font-size: 28px;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .close:hover,
@@ -66,14 +68,19 @@ $destinations = get_destinations_by_category($conn, $id);
         }
 
         .open-modal-btn {
+            border-radius:10px;
+            margin-left:5%;
+            font-family: "Poppins","sans-serif";
+            font-weight: 300;
+            font-size:1.25em;
+            letter-spacing: 0.1em;
+            width:20%;
+            border-radius: 5px;
             background-color: #085a57;
             color: white;
-            padding: 10px 20px;
+            padding: 1%;
             border: none;
             cursor: pointer;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
         }
     </style>
 </head>
@@ -140,34 +147,59 @@ $destinations = get_destinations_by_category($conn, $id);
             </div>
         </form>
     </div>
-    <button class="open-modal-btn">Add Category</button>
-    <div id="addCategoryModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Add Category</h2>
-            <form>
-                <label for="categoryName">Category Name</label><br>
-                <input type="text" id="categoryName" name="categoryName"><br><br>
-                <input type="submit" value="Add Category">
-            </form>
-        </div>
+    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') { ?>
+            <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
+            <?php } ?>
+<div id="addDestinationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('addDestinationModal').style.display='none'">&times;</span>
+        <h2>Add Destination</h2>
+        <form action="addDestination.php" method="post">
+            <label for="destinationName">Destination Name</label><br>
+            <input type="text" id="destinationName" name="destinationName" required><br><br>
+
+            <label for="fromDate">From Date</label><br>
+            <input type="date" id="fromDate" name="fromDate" required><br><br>
+
+            <label for="toDate">To Date</label><br>
+            <input type="date" id="toDate" name="toDate" required><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+            <label for="price">Price</label><br>
+            <input type="text" id="price" name="price" required><br><br>
+
+            <label for="location">Location</label><br>
+            <input type="text" id="location" name="location" required><br><br>
+
+            <label for="imgUrl">Image URL</label><br>
+            <input type="text" id="imgUrl" name="imgUrl" required><br><br>
+
+            <input type="submit" value="Add Destination">
+        </form>
     </div>
-    <script>
-        var modal = document.getElementById("addCategoryModal");
-        var btn = document.querySelector(".open-modal-btn");
-        var span = document.querySelector(".close");
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        span.onclick = function() {
+</div>
+<script>
+    // JavaScript to control modal display
+    var modal = document.getElementById('addDestinationModal');
+    var btn = document.querySelector('.open-modal-btn');
+    var span = document.getElementsByClassName('close')[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    }
+</script>
     <section class="arr">
         <?php foreach ($destinations as $dest) { ?>
             <a href="details.php?id=<?php echo $dest['destinationID']; ?>&name=<?php echo urlencode($dest['destinationName']); ?>">
