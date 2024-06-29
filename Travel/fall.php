@@ -4,6 +4,7 @@ include "db_connect.php";
 include "arrangement_functions.php";
     $id=3;
     $destinations=get_destinations_by_category($conn,$id);
+
 ?>
 <!DOCTYPE html>
 <html>
