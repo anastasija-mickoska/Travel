@@ -42,17 +42,13 @@
             form {
                 margin-top:10%;
                 width:100%;
-            }
-            .input1 {
-                width:100%;
-                margin:5%;
                 margin-left:25%;
             }
             #loginButton {
                 border-radius:10px;
                 border:none;
                 width:50%;
-                margin-left:25%;
+                margin-top:5%;
                 background-color: #085a57;
                 color:white;
                 padding:2%;
@@ -78,6 +74,11 @@
                 letter-spacing: 0.1em;
                 text-align: center;
                 margin-top:2%;
+            }
+            .input1 {
+                width:100%;
+                margin:5%;
+                margin-left:25%;
             }
             a {
                 text-decoration: underline 1px black;
@@ -113,14 +114,14 @@
                 <div class="login">
                     <h1>Log in to your account</h1>
                     <form method="post" action="authentication_function.php">
-                        <div class="input1">
-                            <label for="email">USERNAME</label> <br>
-                            <input type="email" name="email"> <br>
-                        </div>
-                        <div class="input1">
-                            <label for="password">PASSWORD</label> <br>
-                            <input type="password" name="password"> <br>
-                        </div>
+                    <div class="mb-5">
+                        <label for="email" style="font-family: Poppins,sans-serif;" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">EMAIL</label><br>
+                        <input type="email" name="email" style="font-family: Poppins,sans-serif;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                    <div class="mb-5">
+                        <label for="password" style="font-family: Poppins,sans-serif;" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PASSWORD</label><br>
+                        <input type="password" name="password" style="font-family: Poppins,sans-serif;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
                         <input type="submit" value="LOGIN" id="loginButton">
                     </form>
                     <div class="input1">
