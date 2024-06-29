@@ -66,14 +66,19 @@ $destinations = get_destinations_by_category($conn, $id);
         }
 
         .open-modal-btn {
+            border-radius:10px;
+            margin-left:5%;
+            font-family: "Poppins","sans-serif";
+            font-weight: 300;
+            font-size:1.25em;
+            letter-spacing: 0.1em;
+            width:20%;
+            border-radius: 5px;
             background-color: #085a57;
             color: white;
-            padding: 10px 20px;
+            padding: 1%;
             border: none;
             cursor: pointer;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
         }
     </style>
 </head>
@@ -132,8 +137,9 @@ $destinations = get_destinations_by_category($conn, $id);
             </div>
         </form>
     </div>
-    <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
-
+    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') { ?>
+            <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
+            <?php } ?>
     <div id="addDestinationModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('addDestinationModal').style.display='none'">&times;</span>
