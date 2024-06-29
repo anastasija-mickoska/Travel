@@ -179,7 +179,7 @@ $destination = get_destination_by_name($conn, $name);
             padding:2%;
             font-size:1.5em;
             letter-spacing: 0.1em;
-            float:left;
+           
         }
     </style>
 </head>
