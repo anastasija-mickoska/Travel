@@ -201,12 +201,14 @@ $destination = get_destination_by_name($conn, $name);
         </nav>
 
         <div class="w-full gap-10 flex items-center" style="height: 700px;">
-            <div class=" w-1/2  flex flex-col items-start gap-5 bg-white opacity-60 rounded p-5">
+            <div class=" w-1/2  flex flex-col items-start gap-5 bg-white opacity-60 rounded-xl p-5">
                 <div style="font-family: Poppins,sans-serif;" class="font-bold  text-3xl"><?php echo $destination['destinationName']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="font-semibold w-full text-left text-xl">From: <?php echo $destination['fromDate']; ?> To: <?php echo $destination['toDate']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl"><?php echo $destination['description']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl font-bold">Price: <?php echo $destination['price']; ?>$</div>
-                <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Book Now</button>
+                <a href="bookingForm.php">
+                    <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Book Now</button>
+                </a>
 
             </div>
             <div class="w-1/2 h-full flex items-center justify-center relative">
