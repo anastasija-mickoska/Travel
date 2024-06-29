@@ -4,9 +4,9 @@ session_start();
 include "db_connect.php";
 include "arrangement_functions.php";
 if (isset($_GET['name']) && !empty($_GET['name'])) {
-    $name = $_GET['name']; // Use the name from the URL
+    $name = $_GET['name']; 
 } else {
-    $name = 'Mykonos'; // Fallback name if 'name' is not provided in the URL
+    $name = 'Mykonos';
 }
 $destination = get_destination_by_name($conn, $name);
 
@@ -24,6 +24,7 @@ $destination = get_destination_by_name($conn, $name);
     <style>
         body {
             margin: 0;
+            background: linear-gradient(#085a57, rgba(8, 90, 87, 0.4)) no-repeat center center/cover;
             padding: 0;
         }
 
@@ -33,9 +34,7 @@ $destination = get_destination_by_name($conn, $name);
 
         #detailpage {
             height: 100vh;
-            background:
-                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-                url('landscape1.jpg') no-repeat center center/cover;
+            background: linear-gradient(#085a57, rgba(8, 90, 87, 0.4)) no-repeat center center/cover;
             margin: 0;
         }
 
@@ -170,6 +169,18 @@ $destination = get_destination_by_name($conn, $name);
             width: 100%;
             height: 10vh;
         }
+        .btn {
+            display: inline-block;
+            border-radius:10px;
+            border:none;
+            width:20%;
+            background-color: #085a57;
+            color:white;
+            padding:2%;
+            font-size:1.5em;
+            letter-spacing: 0.1em;
+            float:left;
+        }
     </style>
 </head>
 
@@ -206,10 +217,9 @@ $destination = get_destination_by_name($conn, $name);
                 <div style="font-family: Poppins,sans-serif;" class="font-semibold w-full text-left text-xl">From: <?php echo $destination['fromDate']; ?> To: <?php echo $destination['toDate']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl"><?php echo $destination['description']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl font-bold">Price: <?php echo $destination['price']; ?>$</div>
-                <a href="bookingForm.php">
-                    <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Book Now</button>
-                </a>
-
+                <button class="btn"> <a href="bookingForm.php?destinationName=<?php echo $destination['destinationName']; ?>"> Book Now </a></button>
+                <?php if(isset($_SESSION['user_type']) && $_SESSION['user_type']==='admin') { ?>
+                <button class="btn"> <a href="editDestination.php?name=<?php echo $destination['destinationName']; ?>"> Edit </a></button> <?php } ?>
             </div>
             <div class="w-1/2 h-full flex items-center justify-center relative">
                 <img class="rounded-xl border-solid border-white border-2" src="<?php echo $destination['imgUrl']; ?>" alt="img" style="width: 100%; height: 70%;">
