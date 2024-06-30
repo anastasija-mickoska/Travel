@@ -18,6 +18,9 @@ if (isset($_SESSION['user_id']) &&
                 background: linear-gradient(#085a57, rgba(8, 90, 87, 0.4)) no-repeat center center/cover;
                 min-height:100vh;
             }
+            section {
+                min-height: 70vh;
+            }
             h1 {
                 font-family: 'Poppins','sans-serif';
                 font-weight:300;
@@ -41,58 +44,82 @@ if (isset($_SESSION['user_id']) &&
                 margin-top:2%;
             }
             table {
-            margin-top:2%;
+                margin-top: 2%;
+                width:100%;
+                margin-left:5%
             }
-            td a, td {
+
+            th,
+            td a,
+            td {
                 text-decoration: none;
-                color:white;
-                font-size:2em;
-                font-family:"Poppins","sans-serif";
+                color: white;
+                font-size: 1.5em;
+                font-family: "Poppins", "sans-serif";
                 font-weight: 300;
+                width:20%;
             }
+
             th {
-                color:white;
-                font-family:"Poppins","sans-serif";
-                font-size:2.5em;
+                font-size: 1.5em;
                 font-weight: 500;
+                text-align: left;
             }
-            td:hover, td a:hover {
-                color:#085a57;
+
+            td:hover,
+            td a:hover {
+                color: #085a57;
+            }
+            #btn {
+                border-radius: 10px;
+                border: none;
+                width: 50%;
+                margin-left: 25%;
+                background-color: #085a57;
+                color: white;
+                padding: 2%;
+                font-size: 0,75em;
+                letter-spacing: 0.1em;
+            }
+            #btn:hover {
+                color:white;
             }
         </style>
     </head>
     <body>
     <nav>
-    <ul>
-        <li><a href="home.php">Home</a></li>
-        <li><a href="summer.php">Summer</a></li>
-        <li><a href="winter.php">Winter</a></li>
-        <li><a href="spring.php">Spring</a></li>
-        <li><a href="fall.php">Fall</a></li>
-        <?php if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])): ?>
-            <li style="color:white; font-family:Poppins; font-weight:100; width:20%">
-                <?php if($_SESSION['user_type'] === 'admin') { ?>
-                    <a href="admin.php"><?php echo $_SESSION['user_email']; ?></a>
-                <?php } else { ?>
-                    <?php echo $_SESSION['user_email']; ?>
+        <ul>
+            <li><a href="home.php">Home</a></li>
+            <li><a href="summer.php">Summer</a></li>
+            <li><a href="winter.php">Winter</a></li>
+            <li><a href="spring.php">Spring</a></li>
+            <li><a href="fall.php">Fall</a></li>
+            <?php if (isset($_SESSION['user_email']) && isset($_SESSION['user_id'])): ?>
+                <li style="color:white; font-family:Poppins; font-weight:100; width:20%">
+                    <?php if($_SESSION['user_type'] === 'admin') { ?>
+                        <a href="admin.php"><?php echo $_SESSION['user_email']; ?></a>
+                    <?php } else { ?>
+                        <?php echo $_SESSION['user_email']; ?>
+                    <?php } ?>
+                </li>
+                <?php if ($_SESSION['user_type'] === 'user') { ?>
+                    <li><a href="myBookings.php?userID=<?php echo $_SESSION['user_id']; ?>">My Bookings</a></li>
                 <?php } ?>
-            </li>
-            <?php if ($_SESSION['user_type'] === 'user') { ?>
-                <li><a href="myBookings.php?userID=<?php echo $_SESSION['user_id']; ?>">My Bookings</a></li>
-            <?php } ?>
-            <li><a href="logout.php">Logout</a></li>
-        <?php else: ?>
-            <li><a href="login.php">Login</a></li>
-        <?php endif; ?>
-    </ul>
-</nav>
-                <h1>My Bookings</h1>
+                <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>
+                <li><a href="login.php">Login</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    <section id="bookings">
+    <h1>My Bookings</h1>
                 <?php if(!empty($bookings)) { ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Booking ID</th>
                             <th scope="col">Destination</th>
+                            <th scope="col">User ID</th>
                             <th scope="col">Booking Date</th>
                         </tr>
                     </thead>
@@ -100,23 +127,18 @@ if (isset($_SESSION['user_id']) &&
                          <?php foreach($bookings as $booking) { ?>
                             <tr>
                                 <td><?php echo $booking['bookingID']?></td>
-                                <td id="dest">
-                                    <a href="arrangement_details.php?id=<?php echo $booking['destinationID'];?>">
-                                        <?php echo $booking['destinationID']?>
-                                    </a>
-                                </td>
+                                <td> <?php echo $booking['destinationID']?> </td>
                                 <td><?php echo $booking['userID']?></td>
                                 <td><?php echo $booking['bookingDate']?></td>
-                                <td>
-                                    <button id="btn"><a href="bookingDetails.php?id=<?php echo $booking['bookingID']?>">Details</a></button>
-                                </td>
                             </tr>
                         <?php }                             
                         } else { ?>
                             <h2>You have no bookings.</h2> <?php
                         } ?>
                     </tbody>
-                    <footer class="body-container">
+                </table>
+    </section>
+    <footer class="body-container">
         <div class="footer-element">
             <img src="logo.jpg" height="120" width="120" style="border-radius: 20px;"> 
         </div>
