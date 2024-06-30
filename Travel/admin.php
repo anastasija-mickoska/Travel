@@ -264,7 +264,7 @@ if (
                             <td><?php echo $arrangement['toDate'] ?></td>
                             <td><?php echo $arrangement['price'] ?> €</td>
                             <td>
-                                <button id="btn"><a href="editDestination.php?id=<?php echo $arrangement['destinationID'] ?>">Edit</a></button>
+                                <button id="btn"><a href="editDestination.php?name=<?php echo $arrangement['destinationName'] ?>">Edit</a></button>
                             </td>
                             <td>
                                 <button id="btn"><a href="deleteDestination.php?id=<?php echo $arrangement['destinationID'] ?>">Delete</a></button>
