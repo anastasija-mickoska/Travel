@@ -27,7 +27,7 @@ $destinations = get_destinations_by_category($conn, $id);
             text-decoration: underline 1px white;
             text-underline-offset: 5px;
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -66,13 +66,13 @@ $destinations = get_destinations_by_category($conn, $id);
         }
 
         .open-modal-btn {
-            border-radius:10px;
-            margin-left:5%;
-            font-family: "Poppins","sans-serif";
+            border-radius: 10px;
+            margin-left: 5%;
+            font-family: "Poppins", "sans-serif";
             font-weight: 300;
-            font-size:1.25em;
+            font-size: 1.25em;
             letter-spacing: 0.1em;
-            width:20%;
+            width: 20%;
             border-radius: 5px;
             background-color: #085a57;
             color: white;
@@ -137,58 +137,99 @@ $destinations = get_destinations_by_category($conn, $id);
             </div>
         </form>
     </div>
-    <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') { ?>
-            <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
-            <?php } ?>
+    <?php
+    //  if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') { 
+    ?>
+    <button class="open-modal-btn" onclick="document.getElementById('addDestinationModal').style.display='block'">Add Destination</button>
+    <?php
+    // }
+    ?>
     <div id="addDestinationModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="document.getElementById('addDestinationModal').style.display='none'">&times;</span>
-                    <h2>Add Destination</h2>
-                    <form action="addDestination.php" method="post">
-                        <label for="destinationName">Destination Name</label><br>
-                        <input type="text" id="destinationName" name="destinationName" required><br><br>
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('addDestinationModal').style.display='none'">&times;</span>
+            <h2>Add Destination</h2>
+            <form action="addDestination.php" method="post">
+                <label for="destinationName">Destination Name</label><br>
+                <input type="text" id="destinationName" name="destinationName" required><br><br>
 
-                        <label for="fromDate">From Date</label><br>
-                        <input type="date" id="fromDate" name="fromDate" required><br><br>
+                <label for="fromDate">From Date</label><br>
+                <input type="date" id="fromDate" name="fromDate" required><br><br>
 
-                        <label for="toDate">To Date</label><br>
-                        <input type="date" id="toDate" name="toDate" required><br><br>
+                <label for="toDate">To Date</label><br>
+                <input type="date" id="toDate" name="toDate" required><br><br>
 
-                        <label for="description">Description</label><br>
-                        <textarea id="description" name="description" rows="4" required></textarea><br><br>
+                <label for="description">Description</label><br>
+                <textarea id="description" name="description" rows="4" required></textarea><br><br>
 
-                        <label for="price">Price</label><br>
-                        <input type="text" id="price" name="price" required><br><br>
+                <label for="price">Price</label><br>
+                <input type="text" id="price" name="price" required><br><br>
 
-                        <label for="location">Location</label><br>
-                        <input type="text" id="location" name="location" required><br><br>
+                <label for="location">Location</label><br>
+                <input type="text" id="location" name="location" required><br><br>
 
-                        <label for="imgUrl">Image URL</label><br>
-                        <input type="text" id="imgUrl" name="imgUrl" required><br><br>
+                <label for="imgUrl">Image URL</label><br>
+                <input type="text" id="imgUrl" name="imgUrl" required><br><br>
 
-                        <input type="submit" value="Add Destination">
-                    </form>
-                </div>
-            </div>
-            <script>
-                var modal = document.getElementById('addDestinationModal');
-                var btn = document.querySelector('.open-modal-btn');
-                var span = document.getElementsByClassName('close')[0];
+                <input type="submit" value="Add Destination">
+            </form>
+        </div>
+    </div>
+    <?php
+    //  if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') { 
+    ?>
+    <button class="open-modal-btn" onclick="document.getElementById('updateDestinationModal').style.display='block'">Update Destination</button>
+    <?php
+    // }
+    ?>
+    <div id="updateDestinationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('updateDestinationModal').style.display='none'">&times;</span>
+            <h2>Update Destination</h2>
+            <form action="updateDestination.php" method="post">
+                <label for="destinationName">Destination Name</label><br>
+                <input type="text" id="destinationName" name="destinationName" required><br><br>
 
-                btn.onclick = function() {
-                    modal.style.display = "block";
-                }
+                <label for="fromDate">From Date</label><br>
+                <input type="date" id="fromDate" name="fromDate" required><br><br>
 
-                span.onclick = function() {
-                    modal.style.display = "none";
-                }
+                <label for="toDate">To Date</label><br>
+                <input type="date" id="toDate" name="toDate" required><br><br>
 
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            </script>
+                <label for="description">Description</label><br>
+                <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+                <label for="price">Price</label><br>
+                <input type="text" id="price" name="price" required><br><br>
+
+                <label for="location">Location</label><br>
+                <input type="text" id="location" name="location" required><br><br>
+
+                <label for="imgUrl">Image URL</label><br>
+                <input type="text" id="imgUrl" name="imgUrl" required><br><br>
+
+                <input type="submit" value="Update Destination">
+            </form>
+        </div>
+    </div>
+    <script>
+        var modal = document.getElementById('updateDestinationModal');
+        var btn = document.querySelector('.open-modal-btn');
+        var span = document.getElementsByClassName('close')[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <section class="arr">
         <?php foreach ($destinations as $dest) { ?>
             <a href="details.php?id=<?php echo $dest['destinationID']; ?>&name=<?php echo urlencode($dest['destinationName']); ?>">
