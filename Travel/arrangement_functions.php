@@ -51,6 +51,20 @@
       
          return $destination;
      }
+
+     function get_destination_by_id($conn,$id) {
+        $query  = "SELECT * FROM destinations WHERE destinationID=?";
+        $queryExecute = $conn->prepare($query);
+        $queryExecute->execute([$id]);
+     
+        if ($queryExecute->rowCount() > 0) {
+              $destination = $queryExecute->fetch();
+        }else {
+           $destination = 0;
+        }
+     
+        return $destination;
+    }
      function search_destinations_homepage($conn) {      
       $destination = isset($_GET['destination']) ? trim($_GET['destination']) : '';
       $when = isset($_GET['when']) ? trim($_GET['when']) : '';
