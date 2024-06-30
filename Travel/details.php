@@ -217,7 +217,7 @@ $destination = get_destination_by_name($conn, $name);
                 <div style="font-family: Poppins,sans-serif;" class="font-semibold w-full text-left text-xl">From: <?php echo $destination['fromDate']; ?> To: <?php echo $destination['toDate']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl"><?php echo $destination['description']; ?></div>
                 <div style="font-family: Poppins,sans-serif;" class="w-full text-left text-xl font-bold">Price: <?php echo $destination['price']; ?>$</div>
-                <button class="btn"> <a href="bookingForm.php?destinationName=<?php echo $destination['destinationName']; ?>?userID=<?php echo $_SESSION['user_id']; ?>"> Book Now </a></button>
+                <button class="btn"> <a href="bookingForm.php?destinationName=<?php echo $destination['destinationName']; ?>"> Book Now </a></button>
                 <?php if(isset($_SESSION['user_type']) && $_SESSION['user_type']==='admin') { ?>
                 <button class="btn"> <a href="editDestination.php?name=<?php echo $destination['destinationName']; ?>"> Edit </a></button> <?php } ?>
             </div>
