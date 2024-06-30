@@ -3,6 +3,7 @@ session_start();
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) {
     // Validate and sanitize input data
+    $bookingID = $_POST['bookingID'];
     $fullName = $_POST['fullName'];
     $email = $_POST['email'];
     $phoneNumber = $_POST['phoneNumber'];
@@ -12,7 +13,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) {
     $numberOfInfants = isset($_POST['numberOfInfants']) ? $_POST['numberOfInfants'] : 0;
 
     // Validate input data
-    if (empty($fullName) || empty($email) || empty($phoneNumber) || empty($destination) || empty($numberOfAdults)) {
+    if (empty($bookingID) || empty($fullName) || empty($email) || empty($phoneNumber) || empty($destination) || empty($numberOfAdults)) {
         die("All fields are required.");
     }
 
@@ -41,14 +42,13 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) {
         $destinationID = $destinationIDRow['destinationID'];
 
         // Prepare and bind SQL statement
-        $stmt = $conn->prepare("INSERT INTO bookings (destinationID, userID, bookingDate) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("UPDATE bookings SET destinationID = ?, fullName = ?, email = ?, phoneNumber = ?, numberOfAdults = ?, numberOfChildren = ?, numberOfInfants = ? WHERE bookingID = ? AND userID = ?");
         $userID = $_SESSION['user_id']; // Assuming user is logged in and their ID is stored in session
-        $bookingDate = date("Y-m-d");
-        $stmt->bind_param("iis", $destinationID, $userID, $bookingDate);
+        $stmt->bind_param("isssiiii", $destinationID, $fullName, $email, $phoneNumber, $numberOfAdults, $numberOfChildren, $numberOfInfants, $bookingID, $userID);
 
         // Execute SQL statement
         if ($stmt->execute()) {
-            echo "Booking added successfully.";
+            echo "Booking updated successfully.";
             // Redirect to a confirmation page or another page
             header("Location: confirmation.php");
             exit();
