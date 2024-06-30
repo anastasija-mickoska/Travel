@@ -38,7 +38,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $userType = 'user';
             $user_id = $user['userID'];
         } else {
-            $error = "Incorrect User name or password";
+            $error = "Incorrect username or password";
             header("Location: login.php?error=$error");
             exit();
         }
@@ -47,7 +47,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $user_password = $user['password'];
 
         if ($email === $user_email) {
-            if ($password === $user_password) {
+            if (password_verify($password, $user_password)) {
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_email'] = $user_email;
                 $_SESSION['user_type'] = $userType;
@@ -59,12 +59,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 }
                 exit();
             } else {
-                $error = "Incorrect User name or password";
+                $error = "Incorrect username or password";
                 header("Location: login.php?error=$error");
                 exit();
             }
         } else {
-            $error = "Incorrect User name or password";
+            $error = "Incorrect username or password";
             header("Location: login.php?error=$error");
             exit();
         }
