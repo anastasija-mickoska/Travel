@@ -83,7 +83,7 @@ $destination = search_destinations_homepage($conn);
                         <div class="desc">
                             <h3><?php echo $dest['destinationName']; ?></h3>
                             <h4><i><?php echo $dest['fromDate']; ?> - <?php echo $dest['toDate']; ?> </i></h4>
-                            <h4 class="price"><?php echo $dest['price']; ?></h4>
+                            <h4 class="price"><?php echo $dest['price']; ?>&#8364;</h4>
                         </div>
                     </div>
                 </a>
